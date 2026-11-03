@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#17324D">
+<title>MUMWARD AI Studio</title>
+<style>
+:root{--navy:#17324D;--teal:#79B8AE;--cream:#F7F1E7;--ink:#29343A;--terra:#C9826B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif}
+header{background:var(--navy);color:white;padding:25px 20px}
+header h1{margin:0;font-size:25px;letter-spacing:1px}
+header p{color:#d7e5e4;font-size:13px;margin-bottom:0}
+main{max-width:760px;margin:auto;padding:20px}
+.card{background:white;padding:18px;border-radius:14px;margin-bottom:17px;box-shadow:0 2px 10px #17324d12}
+h2{font-size:18px;color:var(--navy);margin-top:0}
+label{display:block;font-weight:bold;font-size:13px;margin:14px 0 7px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ccd4d5;border-radius:8px;font-size:15px;background:white;color:var(--ink)}
+textarea{min-height:100px;resize:vertical}
+button{border:0;border-radius:9px;padding:13px 16px;font-size:14px;font-weight:bold;cursor:pointer}
+.primary{background:var(--navy);color:white;width:100%;margin-top:14px}
+.secondary{background:var(--teal);color:#17324D;width:100%;margin-top:10px}
+.output{white-space:pre-wrap;background:#f3f6f5;border:1px solid #dce5e2;border-radius:9px;padding:14px;min-height:100px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.tag{display:inline-block;background:#e1efeb;color:#17324D;padding:6px 9px;border-radius:20px;font-size:11px;margin:4px 3px 8px 0}
+.note{font-size:12px;line-height:1.5;color:#657276}
+footer{text-align:center;padding:20px;color:#657276;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>MUMWARD AI STUDIO</h1>
+<p>Plan better videos. Build clearer scenes. Create with purpose.</p>
+</header>
+<main>
+<div class="card">
+<span class="tag">PERSONAL VIDEO WORKSPACE</span>
+<h2>Video Prompt Builder</h2>
+<label for="topic">What video are you creating?</label>
+<input id="topic" placeholder="e.g. Helping a newborn burp after feeding">
+<label for="character">Main character</label>
+<input id="character" value="A Nigerian mother and her newborn baby">
+<label for="action">Describe the action</label>
+<textarea id="action" placeholder="Describe exactly what the character should do..."></textarea>
+<label for="setting">Scene location</label>
+<input id="setting" value="A clean, peaceful Nigerian family home">
+<label for="style">Visual style</label>
+<select id="style"><option>Photorealistic, natural human movement</option><option>Cinematic documentary realism</option><option>Soft natural lifestyle photography</option></select>
+<label for="camera">Camera direction</label>
+<select id="camera"><option>Medium close-up, steady camera</option><option>Close-up with gentle camera movement</option><option>Wide establishing shot</option><option>Over-the-shoulder shot</option></select>
+<label for="ratio">Video format</label>
+<select id="ratio"><option>9:16 vertical video</option><option>16:9 landscape video</option><option>1:1 square video</option></select>
+<button class="primary" id="build">Build my video prompt</button>
+</div>
+<div class="card">
+<h2>Your generated prompt</h2>
+<div class="output" id="result">Your detailed video prompt will appear here.</div>
+<button class="secondary" id="copy">Copy video prompt</button>
+</div>
+<div class="card">
+<h2>Scene Planner</h2>
+<label for="scene">Scene description</label>
+<textarea id="scene" placeholder="Describe what happens in this scene..."></textarea>
+<button class="primary" id="add">Add scene to plan</button>
+<div id="scenes" class="output" style="margin-top:14px">Your scenes will appear here.</div>
+<button class="secondary" id="copyScenes">Copy all scenes</button>
+</div>
+<div class="card">
+<h2>Production reminder</h2>
+<p class="note">Check character appearance, safe baby handling, natural movement, camera direction and educational accuracy before using your video.</p>
+<span class="tag">MUMWARD HEALTH</span>
+<span class="tag">EVIDENCE-AWARE EDUCATION</span>
+</div>
+<p class="note">Version 1.0. This website organizes prompts and scenes locally. An external AI video-generation engine is not connected yet.</p>
+</main>
+<footer>Made for MUMWARD Health · MUMWARD AI Studio</footer>
+<script>
+const $=id=>document.getElementById(id);
+let sceneList=[];
+$("build").addEventListener("click",()=>{
+const topic=$("topic").value.trim();
+const action=$("action").value.trim();
+if(!topic||!action){alert("Please enter your video topic and describe the action.");return}
+$("result").textContent="Video topic: "+topic+"\nMain character: "+$("character").value+"\nAction: "+action+"\nLocation: "+$("setting").value+"\nVisual style: "+$("style").value+"\nCamera: "+$("camera").value+"\nFormat: "+$("ratio").value+"\n\nDirection: Show only the described action. Use realistic anatomy, natural movement and consistent character appearance. Keep the scene visually clear. Avoid distorted hands, extra limbs, unnatural motion and sudden scene changes.";
+});
+$("copy").addEventListener("click",async()=>{
+const text=$("result").textContent;
+if(text==="Your detailed video prompt will appear here."){alert("Build a prompt first.");return}
+try{await navigator.clipboard.writeText(text);alert("Prompt copied.")}catch(e){alert("Select and copy the prompt manually.")}
+});
+$("add").addEventListener("click",()=>{
+const value=$("scene").value.trim();
+if(!value){alert("Describe your scene first.");return}
+sceneList.push("Scene "+sceneList.length+" : "+value);
+$("scenes").textContent=sceneList.join("\n\n");
+$("scene").value="";
+});
+$("copyScenes").addEventListener("click",async()=>{
+if(!sceneList.length){alert("Add a scene first.");return}
+try{await navigator.clipboard.writeText(sceneList.join("\n\n"));alert("Scenes copied.")}catch(e){alert("Select and copy the scenes manually.")}
+});
+</script>
+</body>
+  </html>
