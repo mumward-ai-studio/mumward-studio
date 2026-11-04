@@ -2,103 +2,259 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#17324D">
-<title>MUMWARD AI Studio</title>
+<title>MUMWARD AI Studio 2.0</title>
 <style>
-:root{--navy:#17324D;--teal:#79B8AE;--cream:#F7F1E7;--ink:#29343A;--terra:#C9826B}
+:root{--navy:#17324D;--teal:#79B8AE;--cream:#F7F1E7;--terracotta:#C9826B;--ink:#29343A;--muted:#64727a;--line:#e5e2dc}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif}
-header{background:var(--navy);color:white;padding:25px 20px}
-header h1{margin:0;font-size:25px;letter-spacing:1px}
-header p{color:#d7e5e4;font-size:13px;margin-bottom:0}
-main{max-width:760px;margin:auto;padding:20px}
-.card{background:white;padding:18px;border-radius:14px;margin-bottom:17px;box-shadow:0 2px 10px #17324d12}
-h2{font-size:18px;color:var(--navy);margin-top:0}
-label{display:block;font-weight:bold;font-size:13px;margin:14px 0 7px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ccd4d5;border-radius:8px;font-size:15px;background:white;color:var(--ink)}
-textarea{min-height:100px;resize:vertical}
-button{border:0;border-radius:9px;padding:13px 16px;font-size:14px;font-weight:bold;cursor:pointer}
-.primary{background:var(--navy);color:white;width:100%;margin-top:14px}
-.secondary{background:var(--teal);color:#17324D;width:100%;margin-top:10px}
-.output{white-space:pre-wrap;background:#f3f6f5;border:1px solid #dce5e2;border-radius:9px;padding:14px;min-height:100px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
-.tag{display:inline-block;background:#e1efeb;color:#17324D;padding:6px 9px;border-radius:20px;font-size:11px;margin:4px 3px 8px 0}
-.note{font-size:12px;line-height:1.5;color:#657276}
-footer{text-align:center;padding:20px;color:#657276;font-size:12px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+header{background:var(--navy);color:white;padding:25px 18px 22px}
+.header-inner,main,footer{max-width:850px;margin:auto}
+header h1{font-size:25px;letter-spacing:.4px;margin:0}
+header p{font-size:14px;color:#d7e5e4;margin:7px 0 0}
+.version{display:inline-block;margin-top:12px;padding:4px 9px;border-radius:20px;background:#ffffff1c;color:#fff;font-size:11px;letter-spacing:.7px}
+main{padding:18px 13px 30px}
+.card{background:white;padding:18px;border:1px solid var(--line);border-radius:15px;margin:0 0 15px;box-shadow:0 3px 12px #17324d0a}
+h2{font-size:18px;color:var(--navy);margin:0 0 12px}
+h3{font-size:15px;color:var(--navy);margin:0 0 8px}
+.tag{display:inline-block;background:#e8f1ef;color:#315e58;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:bold;margin-bottom:9px}
+label{display:block;font-size:13px;font-weight:bold;margin:13px 0 6px;color:#34434b}
+input,textarea,select{width:100%;padding:12px;border:1px solid #cfd6d5;border-radius:9px;font:14px Arial,sans-serif;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid #79b8ae66;border-color:var(--teal)}
+button{border:0;border-radius:9px;padding:12px 15px;font-size:14px;font-weight:bold;cursor:pointer}
+.primary{background:var(--navy);color:white}
+.secondary{background:#e5f0ee;color:#244d49}
+.terracotta{background:var(--terracotta);color:white}
+button:active{transform:scale(.99)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.note{font-size:12px;color:var(--muted);margin:10px 0 0}
+.output{white-space:pre-wrap;overflow-wrap:anywhere;background:#f7f8f7;border:1px solid var(--line);border-radius:9px;padding:13px;font-size:13px;min-height:55px}
+.scene-card{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;background:#fff}
+.scene-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.scene-head strong{color:var(--navy)}
+.small{font-size:12px;padding:8px 10px}
+.prompt-block{margin-top:12px}
+.prompt-block label{margin-top:0}
+.empty{color:var(--muted);font-size:13px}
+footer{text-align:center;padding:8px 18px 28px;color:var(--muted);font-size:12px}
+hr{border:0;border-top:1px solid var(--line);margin:17px 0}
+@media(min-width:650px){main{padding:24px 18px 40px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.grid .full{grid-column:1/-1}}
 </style>
 </head>
 <body>
 <header>
-<h1>MUMWARD AI STUDIO</h1>
-<p>Plan better videos. Build clearer scenes. Create with purpose.</p>
+ <div class="header-inner">
+  <h1>MUMWARD AI STUDIO</h1>
+  <p>Plan better videos. Build clearer scenes. Keep every production detail together.</p>
+  <span class="version">VERSION 2.0 · MUMWARD HEALTH</span>
+ </div>
 </header>
 <main>
-<div class="card">
-<span class="tag">PERSONAL VIDEO WORKSPACE</span>
-<h2>Video Prompt Builder</h2>
-<label for="topic">What video are you creating?</label>
-<input id="topic" placeholder="e.g. Helping a newborn burp after feeding">
-<label for="character">Main character</label>
-<input id="character" value="A Nigerian mother and her newborn baby">
-<label for="action">Describe the action</label>
-<textarea id="action" placeholder="Describe exactly what the character should do..."></textarea>
-<label for="setting">Scene location</label>
-<input id="setting" value="A clean, peaceful Nigerian family home">
-<label for="style">Visual style</label>
-<select id="style"><option>Photorealistic, natural human movement</option><option>Cinematic documentary realism</option><option>Soft natural lifestyle photography</option></select>
-<label for="camera">Camera direction</label>
-<select id="camera"><option>Medium close-up, steady camera</option><option>Close-up with gentle camera movement</option><option>Wide establishing shot</option><option>Over-the-shoulder shot</option></select>
-<label for="ratio">Video format</label>
-<select id="ratio"><option>9:16 vertical video</option><option>16:9 landscape video</option><option>1:1 square video</option></select>
-<button class="primary" id="build">Build my video prompt</button>
-</div>
-<div class="card">
-<h2>Your generated prompt</h2>
-<div class="output" id="result">Your detailed video prompt will appear here.</div>
-<button class="secondary" id="copy">Copy video prompt</button>
-</div>
-<div class="card">
-<h2>Scene Planner</h2>
-<label for="scene">Scene description</label>
-<textarea id="scene" placeholder="Describe what happens in this scene..."></textarea>
-<button class="primary" id="add">Add scene to plan</button>
-<div id="scenes" class="output" style="margin-top:14px">Your scenes will appear here.</div>
-<button class="secondary" id="copyScenes">Copy all scenes</button>
-</div>
-<div class="card">
-<h2>Production reminder</h2>
-<p class="note">Check character appearance, safe baby handling, natural movement, camera direction and educational accuracy before using your video.</p>
-<span class="tag">MUMWARD HEALTH</span>
-<span class="tag">EVIDENCE-AWARE EDUCATION</span>
-</div>
-<p class="note">Version 1.0. This website organizes prompts and scenes locally. An external AI video-generation engine is not connected yet.</p>
+ <section class="card">
+  <span class="tag">VIDEO PRODUCTION WORKSPACE</span>
+  <h2>1. Video Prompt Builder</h2>
+  <div class="grid">
+   <div class="full">
+    <label for="topic">What video are you creating?</label>
+    <input id="topic" placeholder="e.g. How to tell if your baby is hungry or uncomfortable">
+   </div>
+   <div>
+    <label for="character">Main character</label>
+    <input id="character" value="A Nigerian mother in her late twenties with a warm, natural appearance">
+   </div>
+   <div>
+    <label for="baby">Baby description</label>
+    <input id="baby" value="A healthy young infant, dressed comfortably">
+   </div>
+   <div class="full">
+    <label for="action">Describe the main action</label>
+    <textarea id="action" placeholder="Describe what the mother or baby should do."></textarea>
+   </div>
+   <div class="full">
+    <label for="setting">Scene location</label>
+    <input id="setting" value="A clean, peaceful, naturally lit Nigerian home">
+   </div>
+   <div>
+    <label for="style">Visual style</label>
+    <select id="style"><option>Photorealistic, natural documentary style</option><option>Photorealistic cinematic style</option><option>Soft, realistic lifestyle photography</option><option>Clean 3D educational animation</option></select>
+   </div>
+   <div>
+    <label for="camera">Default camera direction</label>
+    <select id="camera"><option>Medium close-up, eye-level</option><option>Wide establishing shot</option><option>Close-up detail shot</option><option>Over-the-shoulder shot</option><option>Slow gentle push-in</option></select>
+   </div>
+   <div>
+    <label for="ratio">Video format</label>
+    <select id="ratio"><option>9:16 vertical, for Reels and Shorts</option><option>16:9 horizontal, for YouTube</option><option>1:1 square, for social feeds</option></select>
+   </div>
+   <div>
+    <label for="duration">Target clip length</label>
+    <select id="duration"><option>5–8 seconds</option><option>8–10 seconds</option><option>10–15 seconds</option><option>15–20 seconds</option></select>
+   </div>
+  </div>
+  <div class="actions">
+   <button class="primary" id="build">Build video prompt</button>
+   <button class="secondary" id="copyMain">Copy video prompt</button>
+  </div>
+  <div class="prompt-block">
+   <label>Your generated video prompt</label>
+   <div class="output" id="result">Your detailed video prompt will appear here.</div>
+  </div>
+ </section>
+
+ <section class="card">
+  <span class="tag">SCENE-BY-SCENE PLANNING</span>
+  <h2>2. Scene Planner</h2>
+  <label for="scene">Scene description</label>
+  <textarea id="scene" placeholder="Example: The mother pauses feeding, lifts the baby upright against her shoulder and gently supports the baby's head."></textarea>
+  <div class="grid">
+   <div>
+    <label for="sceneCamera">Camera movement</label>
+    <select id="sceneCamera"><option>Slow gentle push-in</option><option>Static camera, steady frame</option><option>Slow pan from left to right</option><option>Gentle tilt down</option><option>Subtle handheld documentary movement</option><option>Close-up with a gradual focus shift</option></select>
+   </div>
+   <div>
+    <label for="transition">Transition to next scene</label>
+    <select id="transition"><option>Soft cut</option><option>Gentle cross dissolve</option><option>Fade to warm cream</option><option>Match cut on movement</option><option>Cut on action</option><option>No transition specified</option></select>
+   </div>
+   <div class="full">
+    <label for="sceneExtra">Important details (optional)</label>
+    <input id="sceneExtra" placeholder="e.g. Keep both hands visible; calm facial expression">
+   </div>
+  </div>
+  <div class="actions">
+   <button class="primary" id="add">Add scene</button>
+   <button class="secondary" id="copyScenes">Copy all scenes</button>
+  </div>
+  <div id="scenes" class="output" style="margin-top:13px"><span class="empty">Your scene prompts will appear here after you add a scene.</span></div>
+ </section>
+
+ <section class="card">
+  <span class="tag">PRODUCTION PROMPTS</span>
+  <h2>3. Complete Production Plan</h2>
+  <p class="note">Build the main prompt and add your scenes. Then copy the complete plan for your image or video generation workflow.</p>
+  <div class="actions">
+   <button class="primary" id="copyAll">Copy complete production plan</button>
+   <button class="secondary" id="clearScenes">Clear scene list</button>
+  </div>
+  <div class="prompt-block">
+   <label>Character consistency guide</label>
+   <div class="output" id="consistency">The same mother and baby must appear consistently in every scene. Keep their facial features, skin tones, hairstyles, age, clothing and overall appearance unchanged. Do not introduce a different mother or baby between shots. Maintain realistic anatomy, natural expressions and safe, supported baby positioning.</div>
+  </div>
+ </section>
+
+ <section class="card">
+  <h2>4. Production reminder</h2>
+  <p class="note">Check character appearance, clothing, baby positioning, hands, background continuity and medical accuracy before publishing. AI-generated visuals should support accurate educational information, not replace professional medical advice.</p>
+  <span class="tag">MUMWARD HEALTH</span>
+  <span class="tag">EVIDENCE-AWARE EDUCATION</span>
+ </section>
 </main>
-<footer>Made for MUMWARD Health · MUMWARD AI Studio</footer>
+<footer>Made for MUMWARD Health · MUMWARD AI Studio 2.0</footer>
 <script>
-const $=id=>document.getElementById(id);
-let sceneList=[];
+const $ = id => document.getElementById(id);
+let sceneList = [];
+let mainPrompt = "";
+
+function makeMainPrompt(){
+ const topic = $("topic").value.trim();
+ const action = $("action").value.trim();
+ if(!topic || !action){
+  alert("Please enter the video topic and describe the main action.");
+  return "";
+ }
+ const character = $("character").value.trim();
+ const baby = $("baby").value.trim();
+ const setting = $("setting").value.trim();
+ const style = $("style").value;
+ const camera = $("camera").value;
+ const ratio = $("ratio").value;
+ const duration = $("duration").value;
+ return `Create a ${duration} ${ratio} video for MUMWARD Health.\n\nVIDEO TOPIC: ${topic}\n\nMAIN CHARACTER: ${character}.\nBABY DESCRIPTION: ${baby}.\nSETTING: ${setting}.\nACTION: ${action}\nVISUAL STYLE: ${style}.\nCAMERA: ${camera}.\n\nCHARACTER CONSISTENCY: Keep the same mother and baby throughout the video. Preserve facial features, skin tone, hairstyle, age, clothing and body proportions across every shot. Do not change the identity or appearance of either character.\n\nVISUAL QUALITY: Natural human movement, realistic hands and fingers, accurate proportions, gentle expressions, believable lighting and a clean uncluttered background. Keep the baby securely and appropriately supported. Avoid distorted anatomy, extra fingers, flickering, sudden wardrobe changes, text, logos and watermarks.\n\nThe scene should communicate the topic clearly and respectfully. Do not show unsafe handling or imply a medical diagnosis.`;
+}
+
 $("build").addEventListener("click",()=>{
-const topic=$("topic").value.trim();
-const action=$("action").value.trim();
-if(!topic||!action){alert("Please enter your video topic and describe the action.");return}
-$("result").textContent="Video topic: "+topic+"\nMain character: "+$("character").value+"\nAction: "+action+"\nLocation: "+$("setting").value+"\nVisual style: "+$("style").value+"\nCamera: "+$("camera").value+"\nFormat: "+$("ratio").value+"\n\nDirection: Show only the described action. Use realistic anatomy, natural movement and consistent character appearance. Keep the scene visually clear. Avoid distorted hands, extra limbs, unnatural motion and sudden scene changes.";
+ mainPrompt = makeMainPrompt();
+ if(mainPrompt) $("result").textContent = mainPrompt;
 });
-$("copy").addEventListener("click",async()=>{
-const text=$("result").textContent;
-if(text==="Your detailed video prompt will appear here."){alert("Build a prompt first.");return}
-try{await navigator.clipboard.writeText(text);alert("Prompt copied.")}catch(e){alert("Select and copy the prompt manually.")}
-});
+async function copyText(value){
+ if(!value || value==="Your detailed video prompt will appear here."){alert("Create the prompt first.");return;}
+ try{
+  await navigator.clipboard.writeText(value);
+  alert("Copied successfully.");
+ }catch(e){
+  const box=document.createElement("textarea");
+  box.value=value;document.body.appendChild(box);box.select();
+  try{document.execCommand("copy");alert("Copied successfully.");}
+  catch(err){alert("Copy was blocked by your browser. Select and copy the text manually.");}
+  box.remove();
+ }
+}
+$("copyMain").addEventListener("click",()=>copyText($("result").textContent));
+function renderScenes(){
+ if(!sceneList.length){
+  $("scenes").innerHTML='<span class="empty">Your scene prompts will appear here after you add a scene.</span>';
+  return;
+ }
+ $("scenes").innerHTML="";
+ sceneList.forEach((scene,index)=>{
+  const wrap=document.createElement("div");
+  wrap.className="scene-card";
+  const heading=document.createElement("div");
+  heading.className="scene-head";
+  const title=document.createElement("strong");
+  title.textContent=`Scene ${index+1}`;
+  const copy=document.createElement("button");
+  copy.className="secondary small";
+  copy.textContent="Copy scene";
+  copy.addEventListener("click",()=>copyText(scene.full));
+  heading.append(title,copy);
+  const imageLabel=document.createElement("label");imageLabel.textContent="Image-generation prompt";
+  const imageText=document.createElement("div");imageText.className="output";imageText.textContent=scene.image;
+  const videoLabel=document.createElement("label");videoLabel.textContent="Video-generation prompt";
+  const videoText=document.createElement("div");videoText.className="output";videoText.textContent=scene.video;
+  const cameraLabel=document.createElement("label");cameraLabel.textContent="Camera movement and transition";
+  const cameraText=document.createElement("div");cameraText.className="output";cameraText.textContent=`Camera: ${scene.camera}\nTransition: ${scene.transition}`;
+  wrap.append(heading,imageLabel,imageText,videoLabel,videoText,cameraLabel,cameraText);
+  $("scenes").appendChild(wrap);
+ });
+}
 $("add").addEventListener("click",()=>{
-const value=$("scene").value.trim();
-if(!value){alert("Describe your scene first.");return}
-sceneList.push("Scene "+sceneList.length+" : "+value);
-$("scenes").textContent=sceneList.join("\n\n");
-$("scene").value="";
+ const description=$("scene").value.trim();
+ if(!description){alert("Describe the scene before adding it.");return;}
+ const topic=$("topic").value.trim() || "MUMWARD Health educational video";
+ const character=$("character").value.trim();
+ const baby=$("baby").value.trim();
+ const setting=$("setting").value.trim();
+ const style=$("style").value;
+ const camera=$("sceneCamera").value;
+ const transition=$("transition").value;
+ const extra=$("sceneExtra").value.trim();
+ const consistency=$("consistency").textContent;
+ const image=`Photorealistic still image for ${topic}. Show ${character} with ${baby}, in ${setting}. Scene: ${description}. Visual style: ${style}. ${extra ? "Additional details: "+extra+". " : ""}${consistency} Natural lighting, realistic anatomy, clear composition, no text, no logos and no watermark.`;
+ const video=`Create a natural, realistic video clip showing this exact action: ${description}. Characters: ${character}; baby: ${baby}. Location: ${setting}. Camera movement: ${camera}. Visual style: ${style}. ${extra ? "Important details: "+extra+". " : ""}Maintain the same character identity and appearance as the other scenes. Use gentle, physically believable movement and safe baby support. End the shot cleanly for the next scene.`;
+ const full=`SCENE ${sceneList.length+1}\n\nIMAGE PROMPT:\n${image}\n\nVIDEO PROMPT:\n${video}\n\nCAMERA MOVEMENT: ${camera}\nTRANSITION: ${transition}`;
+ sceneList.push({image,video,camera,transition,full});
+ renderScenes();
+ $("scene").value="";
+ $("sceneExtra").value="";
 });
-$("copyScenes").addEventListener("click",async()=>{
-if(!sceneList.length){alert("Add a scene first.");return}
-try{await navigator.clipboard.writeText(sceneList.join("\n\n"));alert("Scenes copied.")}catch(e){alert("Select and copy the scenes manually.")}
+$("copyScenes").addEventListener("click",()=>{
+ if(!sceneList.length){alert("Add at least one scene first.");return;}
+ copyText(sceneList.map(s=>s.full).join("\n\n====================\n\n"));
+});
+$("copyAll").addEventListener("click",()=>{
+ if(!mainPrompt && $("topic").value.trim() && $("action").value.trim()) mainPrompt=makeMainPrompt();
+ if(!mainPrompt){alert("Build your video prompt first.");return;}
+ const scenes=sceneList.length?sceneList.map(s=>s.full).join("\n\n====================\n\n"):"No scenes added yet.";
+ copyText(`MUMWARD AI STUDIO 2.0\n\nMAIN VIDEO PROMPT\n${mainPrompt}\n\nCHARACTER CONSISTENCY\n${$("consistency").textContent}\n\nSCENE PLAN\n${scenes}`);
+});
+$("clearScenes").addEventListener("click",()=>{
+ if(!sceneList.length)return;
+ if(confirm("Remove all scenes from this plan?")){sceneList=[];renderScenes();}
 });
 </script>
 </body>
-  </html>
+</html>
+
+     
