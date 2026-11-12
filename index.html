@@ -776,4 +776,102 @@ ${extra}
 
 Use gentle, physically believable movement. Maintain character consistency, realistic anatomy and safe baby support.
 
-Do not change the mother, baby, clothing or en
+
+Do not change the mother, baby, clothing or environment between scenes. Maintain consistent facial features, skin tone, hairstyle and realistic anatomy.
+
+End the scene naturally.
+`;
+
+  sceneList.push({
+    description,
+    image,
+    video,
+    camera,
+    transition
+  });
+
+  renderScenes();
+
+  $("scene").value = "";
+  $("sceneExtra").value = "";
+});
+
+$("copyScenes").addEventListener("click", () => {
+  if (!sceneList.length) {
+    alert("Add at least one scene first.");
+    return;
+  }
+
+  const output = sceneList.map((scene, index) => `
+SCENE ${index + 1}
+
+IMAGE PROMPT:
+${scene.image}
+
+VIDEO PROMPT:
+${scene.video}
+
+CAMERA: ${scene.camera}
+TRANSITION: ${scene.transition}
+`).join("\n\n");
+
+  copyText(output);
+});
+
+$("copyAll").addEventListener("click", () => {
+  if (!mainImage || !mainVideo) {
+    alert("Build your main prompts first.");
+    return;
+  }
+
+  const scenes = sceneList.map((scene, index) => `
+SCENE ${index + 1}
+
+IMAGE PROMPT:
+${scene.image}
+
+VIDEO PROMPT:
+${scene.video}
+
+CAMERA: ${scene.camera}
+TRANSITION: ${scene.transition}
+`).join("\n\n");
+
+  const completePlan = `
+MUMWARD AI STUDIO 3.0
+COMPLETE PRODUCTION PLAN
+
+${mainImage}
+
+${mainVideo}
+
+${characterGuide()}
+
+SCENE-BY-SCENE PRODUCTION PLAN
+
+${scenes || "No scenes have been added yet."}
+`;
+
+  copyText(completePlan);
+});
+
+$("copyCharacter").addEventListener("click", () => {
+  copyText(characterGuide());
+});
+
+$("clearScenes").addEventListener("click", () => {
+  if (!sceneList.length) {
+    alert("There are no scenes to clear.");
+    return;
+  }
+
+  if (confirm("Are you sure you want to clear all scenes?")) {
+    sceneList = [];
+    renderScenes();
+  }
+});
+
+</script>
+</body>
+</html>
+
