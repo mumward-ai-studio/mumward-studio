@@ -459,7 +459,50 @@ footer {
   <h3>Production reminder</h3>
   <p class="note">Check character appearance, baby positioning, camera continuity and medical accuracy before publishing. AI-generated visuals should support accurate educational information, not replace professional medical advice.</p>
 </section>
+<!-- SECTION 7: CHARACTER REFERENCE LIBRARY -->
 
+<section class="card">
+  <span class="tag">CHARACTER MANAGEMENT</span>
+  <h2>7. Character Reference Library</h2>
+
+  <p class="note">
+    Save and reuse your mother and baby character descriptions
+    across different video projects.
+  </p>
+
+  <label for="characterName">Character profile name</label>
+  <input
+    id="characterName"
+    type="text"
+    placeholder="e.g. MUMWARD Mother 01"
+  >
+
+  <div class="actions">
+    <button class="primary" id="saveCharacter">
+      Save Character
+    </button>
+  </div>
+
+  <label for="savedCharacters">Saved character profiles</label>
+  <select id="savedCharacters">
+    <option value="">Select a saved character</option>
+  </select>
+
+  <div class="actions">
+    <button class="secondary" id="loadCharacter">
+      Load Character
+    </button>
+
+    <button class="danger" id="deleteCharacter">
+      Delete Character
+    </button>
+  </div>
+
+  <p class="note">
+    Saved profiles will be available when you return to this app
+    on the same browser.
+  </p>
+    </section>
 </main>
 
 <footer>
@@ -870,6 +913,147 @@ $("clearScenes").addEventListener("click", () => {
     renderScenes();
   }
 });
+
+// ==========================================
+// SECTION 7: CHARACTER REFERENCE LIBRARY
+// ==========================================
+
+const CHARACTER_STORAGE_KEY = "mumwardCharacterProfiles";
+
+function getSavedCharacters() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(CHARACTER_STORAGE_KEY) || "[]"
+    );
+  } catch (error) {
+    return [];
+  }
+}
+
+function refreshSavedCharacters() {
+  const select = $("savedCharacters");
+  const profiles = getSavedCharacters();
+
+  select.innerHTML = "";
+
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "Select a saved character";
+  select.appendChild(placeholder);
+
+  profiles.forEach(profile => {
+    const option = document.createElement("option");
+    option.value = profile.id;
+    option.textContent = profile.name;
+    select.appendChild(option);
+  });
+}
+
+// SAVE CHARACTER
+$("saveCharacter").addEventListener("click", () => {
+  const name = $("characterName").value.trim();
+
+  if (!name) {
+    alert("Please enter a character profile name.");
+    return;
+  }
+
+  const profile = {
+    id: Date.now().toString(),
+    name: name,
+    data: getCharacter(),
+    countrySelect: $("country").value,
+    languageSelect: $("language").value,
+    customCountry: $("customCountry").value,
+    customLanguage: $("customLanguage").value
+  };
+
+  const profiles = getSavedCharacters();
+  profiles.push(profile);
+
+  try {
+    localStorage.setItem(
+      CHARACTER_STORAGE_KEY,
+      JSON.stringify(profiles)
+    );
+
+    refreshSavedCharacters();
+    $("savedCharacters").value = profile.id;
+
+    alert("Character profile saved successfully!");
+  } catch (error) {
+    alert("Unable to save. Check your browser storage.");
+  }
+});
+
+// LOAD CHARACTER
+$("loadCharacter").addEventListener("click", () => {
+  const selectedId = $("savedCharacters").value;
+
+  if (!selectedId) {
+    alert("Please select a saved character.");
+    return;
+  }
+
+  const profiles = getSavedCharacters();
+  const profile = profiles.find(p => p.id === selectedId);
+
+  if (!profile) {
+    alert("Character profile not found.");
+    return;
+  }
+
+  const c = profile.data;
+
+  $("country").value = profile.countrySelect;
+  $("language").value = profile.languageSelect;
+  $("customCountry").value = profile.customCountry;
+  $("customLanguage").value = profile.customLanguage;
+
+  $("region").value = c.region;
+  $("mother").value = c.mother;
+  $("appearance").value = c.appearance;
+  $("clothing").value = c.clothing;
+  $("baby").value = c.baby;
+  $("setting").value = c.setting;
+  $("culture").value = c.culture;
+
+  alert("Character profile loaded successfully!");
+});
+
+// DELETE CHARACTER
+$("deleteCharacter").addEventListener("click", () => {
+  const selectedId = $("savedCharacters").value;
+
+  if (!selectedId) {
+    alert("Please select a character to delete.");
+    return;
+  }
+
+  if (!confirm("Are you sure you want to delete this character?")) {
+    return;
+  }
+
+  const profiles = getSavedCharacters().filter(
+    p => p.id !== selectedId
+  );
+
+  localStorage.setItem(
+    CHARACTER_STORAGE_KEY,
+    JSON.stringify(profiles)
+  );
+
+  refreshSavedCharacters();
+
+  alert("Character profile deleted.");
+});
+
+// LOAD SAVED PROFILES WHEN APP OPENS
+refreshSavedCharacters();
+
+// ==========================================
+// END OF CHARACTER REFERENCE LIBRARY
+// ==========================================
 
 </script>
 </body>
